@@ -116,7 +116,7 @@ $(document).ready(function () {
 <h2>Loading and preprocessing the data</h2>
 <pre class="{"><code>require(plyr)
 require(ggplot2)
-unzip(&quot;activity.zip&quot;)
+unzip(~/RepData/activity.zip)
 activity &lt;- read.csv(&quot;activity.csv&quot;, header = TRUE)
 activity &lt;- transform(activity, date = as.Date(date))
 }

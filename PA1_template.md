@@ -6,7 +6,7 @@
 ```{
 require(plyr)
 require(ggplot2)
-unzip("activity.zip")
+unzip(~/RepData/activity.zip)
 activity <- read.csv("activity.csv", header = TRUE)
 activity <- transform(activity, date = as.Date(date))
 }
