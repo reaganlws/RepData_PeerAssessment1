@@ -114,13 +114,15 @@ $(document).ready(function () {
 
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
-<pre class="{"><code>require(plyr)
-require(ggplot2)
-unzip(~/RepData/activity.zip)
+<pre class="r"><code>require(plyr)</code></pre>
+<pre><code>## Loading required package: plyr</code></pre>
+<pre><code>## Warning: package 'plyr' was built under R version 3.2.3</code></pre>
+<pre class="r"><code>require(ggplot2)</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.2.3</code></pre>
+<pre class="r"><code>unzip(&quot;activity.zip&quot;)
 activity &lt;- read.csv(&quot;activity.csv&quot;, header = TRUE)
-activity &lt;- transform(activity, date = as.Date(date))
-}
-</code></pre>
+activity &lt;- transform(activity, date = as.Date(date))</code></pre>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
