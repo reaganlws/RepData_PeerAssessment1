@@ -57,7 +57,7 @@ meanStepsPerDay <- mean(stepsPerDay)
 medianStepsPerDay <- median(stepsPerDay)
 ```
 
-- The mean is 9354.23
+- The mean is 9354.2295082
 - The median is 10395
 
 ## What is the average daily activity pattern?
@@ -97,6 +97,60 @@ The maximum average steps per period occur at interval 835, with an average of 2
 
 ## Imputing missing values
 
+Total number of missing values in the dataset (total number of NAs in all rows)
 
+```r
+sum(is.na(activity))
+```
+
+```
+## [1] 2304
+```
+Replace NA with mean of 5-minute interval.
+
+```r
+activity2 <- transform(activity, steps = ifelse(is.na(steps), ave(steps, interval, 
+                      FUN = function(x) mean(x, na.rm = TRUE)), steps))
+```
+Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
+
+
+```r
+stepsPerDay2 <- tapply(activity2$steps, activity2$date, sum, na.rm=TRUE)
+qplot(stepsPerDay2, xlab='Total steps per day', ylab='Frequency using binwith 800', binwidth=800)
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)
+Compute the `mean` and `median` total number of steps taken per day.
+
+```r
+meanStepsPerDay2 <- mean(stepsPerDay2)
+medianStepsPerDay2 <- median(stepsPerDay2)
+```
+- The mean is 1.0766189\times 10^{4}
+- The median is 1.0766189\times 10^{4}
+
+There are slight difference between in mean and median from the original after imputing the missing data.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+
+
+```r
+activity2$dateType <-  ifelse(as.POSIXlt(activity2$date)$wday %in% c(0,6), 'weekend', 'weekday')
+```
+
+2. Make a panel plot containing a time series plot
+
+
+```r
+avgActivity2 <- aggregate(steps ~ interval + dateType, data=activity2, mean)
+ggplot(avgActivity2, aes(interval, steps)) + 
+    geom_line() + 
+    facet_grid(dateType ~ .) +
+    xlab("interval") + 
+    ylab("average number of steps")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)
